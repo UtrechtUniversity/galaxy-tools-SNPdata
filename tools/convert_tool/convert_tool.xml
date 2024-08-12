@@ -34,6 +34,7 @@
                 <option value="neogen220">neogen220</option>
                 <option value="vcf3">vcf3</option>
                 <option value="affymetrix">affymetrix</option>
+                <option value="mdd">mdd</option>
             </param>
 
             <when value="embark">
@@ -78,7 +79,18 @@
             <data name="outputbim" format="tabular" label="${filename_output}.bim from convert_tool"/>
             <data name="outputfam" format="txt" label="${filename_output}.fam from convert_tool"/>
     </outputs>
+    <tests>
+        <test expect_num_outputs="1">
+            <param name="inputplatform" value="lupa170" />
+            <output name="outputbed" file="output.bed" ftype="binary"/>
+        </test>
+    </tests>
     <help><![CDATA[
     Create help section here 
     ]]></help>
+    <citations>
+        <citation type="bibtex">
+            @misc{}
+        </citation>    
+    </citations>
 </tool>
