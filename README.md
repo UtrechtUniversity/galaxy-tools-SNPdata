@@ -1,42 +1,15 @@
-# re-simple-python-project
+# Galaxy tools for harmonizing and cleaning SNP data 
 
-This simple project structure template repository is adapted from the [Good Enough Project](https://github.com/bvreede/good-enough-project) Cookiecutter template by Barbara Vreede (2019).
-If you plan to develop a package, check the [template repository for a Python package](https://github.com/UtrechtUniversity/re-python-package).
+This repo contains a collection of Galaxy tools developed for the 'Dogs-in-space' project at the Veterinary Science department. These tools are designed to harmonize and clean SNP data, enabling its integration into a larger dataset.
 
-## Usage
+## Tools
 
-Click "Use this template" at the top of this page to create a new repository with the same folder structure.
+__Convert Tool__: To be able to merge genotype files from different platforms, the files must be in a uniform format. This Galaxy tool creates files which are in the same format, ready to be merged.
+__Quality Control Tool__: To ensure clean and good quality data, quality control steps need to be performed. This Galaxy tool can be used to perform multiple quality control checks: sample call rate, sex check, duplicate sample check, breed check.
+__Consensus Tree Tool__: To get an overview of relations between different dog breeds, they can be placed in a phylogenetic tree. This Galaxy tool makes a consensus tree of a SNP dataset. This tree can be visualized by programs such as ITOL (online tool), dendroscope, figtree etc.
 
-## Project Structure
-
-The project structure distinguishes three kinds of folders:
-- read-only (RO): not edited by either code or researcher
-- human-writeable (HW): edited by the researcher only.
-- project-generated (PG): folders generated when running the code; these folders can be deleted or emptied and will be completely reconstituted as the project is run.
-
-
-```
-.
-├── .gitignore
-├── LICENSE
-├── README.md
-├── requirements.txt
-├── data               <- All project data, ignored by git
-│   ├── processed      <- The final, canonical data sets for modeling. (PG)
-│   ├── raw            <- The original, immutable data dump. (RO)
-│   └── temp           <- Intermediate data that has been transformed. (PG)
-├── docs               <- Documentation notebook for users (HW)
-│   ├── manuscript     <- Manuscript source, e.g., LaTeX, Markdown, etc. (HW)
-│   └── reports        <- Other project reports and notebooks (e.g. Jupyter, .Rmd) (HW)
-├── results
-│   ├── figures        <- Figures for the manuscript or reports (PG)
-│   └── output         <- Other output for the manuscript or reports (PG)
-└── src                <- Source code for this project (HW)
-
-```
-
-## Add a citation file
-Create a citation file for your repository using [cffinit](https://citation-file-format.github.io/cff-initializer-javascript/#/)
+Additional tool for handling an specific Embark .bed file, which is currently incompatible with the other tools:
+__Map-Ped to Bed File__: Generates the required files for the Convert Tool (.bed, .bim, and .fam) from .map and .ped files. This Galaxy tool adds an extra step to the workflow, which can be excluded soon.
 
 ## License
 

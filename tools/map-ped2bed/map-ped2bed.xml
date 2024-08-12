@@ -1,0 +1,24 @@
+<tool id="map-ped2bed" name="Map-Ped to Bed" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+    $__tool_directory__/convert_files/common_scripts/plink  --ped '$inputped' --map '$inputmap' --chr-set 38 --make-bed --out $__tool_directory__/test2 &&
+    
+    cp $__tool_directory__/test2.bed '$bedfile' &&
+    cp $__tool_directory__/test2.bim '$bimfile' &&
+    cp $__tool_directory__/test2.fam '$famfile'
+
+    ]]></command>
+    <inputs>
+        <param name="inputped" type="data" format="data"/>
+        <param name="inputmap" type="data" format="data"/>
+    </inputs>
+    <outputs>
+        <data name="bedfile" format="binary" label="Create input bedfile" />
+        <data name="bimfile" format="tabular" label="Create input bimfile" />
+        <data name="famfile" format="txt" label="Create input famfile" />
+    </outputs>
+    <help><![CDATA[
+    Create help section here 
+    ]]></help>
+</tool>

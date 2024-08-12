@@ -1,0 +1,49 @@
+<tool id="quality_control_tool" name="Quality Control Tool" version="0.1.0+galaxy0" python_template_version="3.5" profile="21.05">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+    bash $__tool_directory__/quality_control.sh -i $inputbim -e $inputbed -a $inputfam -p $inputplatform -o $filename_output -x $__tool_directory__ 
+    #if $sexcheck == "true"
+        -s 
+    #end if
+    #if $duplicatecheck == "true"
+        -d
+    #end if 
+    #if $breedcheck != "None"
+        -b $breedcheck
+    #end if
+
+    &&
+    
+    cp '$filename_output'.bed $outputbed &&
+    cp '$filename_output'.bim $outputbim &&
+    cp '$filename_output'.fam $outputfam
+    
+    ]]></command>
+    <inputs>
+        <param name="inputplatform" type="select" label="Specify the platform">
+            <option value="embark">embark</option>
+            <option value="lupa170">lupa170</option>
+            <option value="neogen220">neogen220</option>
+            <option value="vcf3">vcf3</option>
+        </param>
+        <param name="inputbed" type="data" format="data" label="Select the .bed file"/>
+        <param name="inputbim" type="data" format="data" label="Select the .bim file"/>
+        <param name="inputfam" type="data" format="data" label="Select the .fam file"/>
+        <param name="filename_output" type="text" format="text" label="Prefix for the output file" optional="false"/>
+        <param name="sexcheck" type="boolean" label="Execute sex check"/>
+        <param name="duplicatecheck" type="boolean" label="Execute duplicate check within input file"/>
+        <param name="breedcheck" type="select" label="Execute breed check. Specify method to construct tree" optional="true">
+            <option value="phylip">phylip</option>
+            <option value="biopython">biopython</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data name="outputbed" format="binary" label="${filename_output}.bed from quality_control_tool"/>
+        <data name="outputbim" format="tabular" label="${filename_output}.bim from quality_control_tool"/>
+        <data name="outputfam" format="txt" label="${filename_output}.fam from quality_control_tool"/>
+    </outputs>
+    <help><![CDATA[
+    Create help section here 
+    ]]></help>
+</tool>
