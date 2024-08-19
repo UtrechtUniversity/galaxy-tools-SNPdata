@@ -8,7 +8,6 @@
         rm $__tool_directory__/'$filename_output'_ExcludedSNPs.list &&
     #elif $inputplatform == "neogen220" or $inputplatform == "neogen170"
         bash $__tool_directory__/convert.sh -n $inputneogen -p $inputplatform -o $filename_output -x $__tool_directory__ &&
-        rm $__tool_directory__/'$filename_output'_ExcludedSNPs.list &&
     #elif $inputplatform == "vcf3"
         bash $__tool_directory__/convert.sh -v $inputvcf3 -p $inputplatform -o $filename_output -x $__tool_directory__ &&
         rm '$inputvcf3'.tbi &&
@@ -80,17 +79,12 @@
             <data name="outputfam" format="txt" label="${filename_output}.fam from convert_tool"/>
     </outputs>
     <tests>
-        <test expect_num_outputs="1">
-            <param name="inputplatform" value="lupa170" />
-            <output name="outputbed" file="output.bed" ftype="binary"/>
+        <test>
+            <param name="input1" value="2.fastq"/>
+            <output name="output1" file="2.fasta"/>
         </test>
     </tests>
     <help><![CDATA[
     Create help section here 
     ]]></help>
-    <citations>
-        <citation type="bibtex">
-            @misc{}
-        </citation>    
-    </citations>
 </tool>

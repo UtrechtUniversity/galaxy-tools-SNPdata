@@ -224,10 +224,11 @@ def main():
     """
     # input files
     filename_final = sys.argv[1]  # input final report file that was given as option in the convert.sh script
-    filename_map = 'convert_files/neogen170/Neogen170KRaw_SNP_Map.txt'
-    filename_cf3_locations = 'convert_files/neogen170/Neogen170KsnpsPresentInCF3.map'  # File with snps that have a location in canfam 3.1
-    snps_to_exclude_merge = 'convert_files/common_files/SNPsToExcludeMerge.list'  # File with SNPids to exclude when merging files
-    neogen_correct_alleles = 'convert_files/neogen170/Neogen170KCorrectAlleles.bim'
+    tool_directory = sys.argv[4]  # tool path Galaxy
+    filename_map = f'{tool_directory}/convert_files/neogen170/Neogen170KRaw_SNP_Map.txt'
+    filename_cf3_locations = f'{tool_directory}/convert_files/neogen170/Neogen170KsnpsPresentInCF3.map'  # File with snps that have a location in canfam 3.1
+    snps_to_exclude_merge = f'{tool_directory}/convert_files/common_files/SNPsToExcludeMerge.list'  # File with SNPids to exclude when merging files
+    neogen_correct_alleles = f'{tool_directory}/convert_files/neogen170/Neogen170KCorrectAlleles.bim'
 
     # output files
     new_filename_map = sys.argv[3] + '.map'

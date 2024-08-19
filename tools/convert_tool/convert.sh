@@ -317,7 +317,7 @@ if [ "$platform" = 'neogen170' ]; then
   {
   # execute python script
   echo -e "\nUsing python script NEOGEN170Kconvert.py to create .map and .ped file in the uniform format: "
-  python3 "${tool_directory}"/convert_files/neogen170/NEOGEN170Kconvert.py "$file_neogen" "$file_exclude" ""${tool_directory}"/convert_files/temp_files/${file_new}_temp"
+  python3 "${tool_directory}"/convert_files/neogen170/NEOGEN170Kconvert.py "$file_neogen" "$file_exclude" ""${tool_directory}"/convert_files/temp_files/${file_new}_temp" "${tool_directory}"
 
   # execute plink command
   echo -e "\nUsing plink to exclude SNPs: "
