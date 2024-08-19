@@ -652,7 +652,7 @@ if [ "$platform" = 'vcf4' ]; then
   {
   # execute python script
   echo -e "\nUsing python script VCF4Convert.py to create a .bim file in the uniform format:"
-  python3 "${tool_directory}"/convert_files/VCF4/VCF4Convert.py ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.bim" ""${tool_directory}"/convert_files/temp_files/${file_new}_temp2"
+  python3 "${tool_directory}"/convert_files/VCF4/VCF4Convert.py ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.bim" ""${tool_directory}"/convert_files/temp_files/${file_new}_temp2" "${tool_directory}"
 
   # execute plink command
   echo -e "\nUsing plink to extract SNPs:"
