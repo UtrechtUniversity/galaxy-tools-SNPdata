@@ -18,9 +18,11 @@ l_option=0
 
 # Extra arguments for Galaxy
 x_option=0
+z_option=0
+
 
 # define options and capture input
-while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:" option; do
+while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:z:" option; do
   case $option in
     i)  # input flag for .bim file
       file_bim="$OPTARG"
@@ -73,6 +75,10 @@ while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:" option; do
       tool_directory="$OPTARG"
       x_option=1
       ;;
+    z)  # input flag for tool path
+      extra_plinkargs="$OPTARG"
+      z_option=1
+      ;;
     \?)
       echo "Unknown option: -$OPTARG" >&2; exit 1 ;;
     :)
@@ -82,6 +88,8 @@ while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:" option; do
 
   esac
 done
+
+echo $extra_plinkargs
 
 # error if no options were used
 if ((OPTIND ==1)); then
@@ -267,7 +275,8 @@ if [ "$platform" = 'embark' ]; then
   --make-bed  \
   --exclude ""${tool_directory}"/${file_exclude}"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -296,7 +305,8 @@ if [ "$platform" = 'neogen220' ]; then
   --ped ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.ped"  \
   --make-bed --exclude ""${tool_directory}"/${file_exclude}"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -327,7 +337,9 @@ if [ "$platform" = 'neogen170' ]; then
   --ped ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.ped"  \
   --make-bed --exclude "$file_exclude"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
+
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
   rm "$file_new.log"
@@ -375,7 +387,8 @@ if [ "$platform" = 'wisdom' ]; then
   --make-bed  \
   --exclude ""${tool_directory}"/$file_exclude"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -430,7 +443,8 @@ if [ "$platform" = 'mdd' ]; then
   --make-bed  \
   --exclude ""${tool_directory}"/${file_exclude}"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -483,7 +497,8 @@ if [ "$platform" = 'lupa170' ]; then
   --make-bed  \
   --exclude "${tool_directory}"/"$file_exclude"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -574,7 +589,8 @@ if [ "$platform" = 'vcf3' ]; then
   --make-bed  \
   --chr-set 38  \
   --const-fid 0 \
-  --out ""${tool_directory}"/convert_files/temp_files/${file_new}_temp"
+  --out ""${tool_directory}"/convert_files/temp_files/${file_new}_temp"  \
+  $extra_plinkargs
   ## --const-fid 0 \ can be added here if there is an error about IDs containing more than 1 _ (underscore)
 
   cat ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.log" >> "$log_file"
@@ -593,7 +609,8 @@ if [ "$platform" = 'vcf3' ]; then
   --make-bed  \
   --extract ""${tool_directory}"/convert_files/temp_files/${file_new}_temp2_extract.list"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -646,7 +663,8 @@ if [ "$platform" = 'vcf4' ]; then
   --vcf "$file_filtered_locations"  \
   --make-bed  \
   --chr-set 38  \
-  --out ""${tool_directory}"/convert_files/temp_files/${file_new}_temp"
+  --out ""${tool_directory}"/convert_files/temp_files/${file_new}_temp"  \
+  $extra_plinkargs
 
   cat ""${tool_directory}"/convert_files/temp_files/${file_new}_temp.log" >> "$log_file"
   {
@@ -664,7 +682,8 @@ if [ "$platform" = 'vcf4' ]; then
   --make-bed  \
   --extract ""${tool_directory}"/convert_files/temp_files/${file_new}_temp2_extract.list"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
@@ -716,7 +735,8 @@ if [ "$platform" = 'affymetrix' ]; then
   --make-bed  \
   --extract ""${tool_directory}"/convert_files/temp_files/${file_new}_temp_extract.list"  \
   --chr-set 38  \
-  --out "$file_new"
+  --out "$file_new"  \
+  $extra_plinkargs
 
   # add plink log to log file
   cat "$file_new.log" >> "$log_file"
