@@ -66,7 +66,9 @@ while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:z:" option; do
       p_option=1
       ;;
     t)  # flag for tbi vcf file present
-      t_option=1;;
+      tbifile="$OPTARG"
+      t_option=1
+      ;;
     l) # flag for filtered locations file of vcf present
       l_option=1;;
     h)  #flag for help
@@ -89,7 +91,7 @@ while getopts ":i:e:a:o:x:z:f:n:w:v:tlhp:z:" option; do
   esac
 done
 
-echo $extra_plinkargs
+echo "${tbifile%%.*}"
 
 # error if no options were used
 if ((OPTIND ==1)); then

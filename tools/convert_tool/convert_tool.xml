@@ -2,20 +2,22 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-
+    
     #if $inputplatform == "embark" or $inputplatform == "lupa170" or $inputplatform == "mdd" or $inputplatform == "affymetrix":
-        echo $extra_plinkargs &&
         bash $__tool_directory__/convert.sh -i $inputbim -e $inputbed -a $inputfam -p $inputplatform -o $filename_output -x $__tool_directory__ -z "$extra_plinkargs" &&
     #elif $inputplatform == "neogen220" or $inputplatform == "neogen170":
         bash $__tool_directory__/convert.sh -n $inputneogen -p $inputplatform -o $filename_output -x $__tool_directory__ &&
     #elif $inputplatform == "vcf3" or $inputplatform == "vcf4":
+        #if $tbioption == "true":
+            cp '$tbifile' '$inputvcf'.tbi &&
+        #end if
         bash $__tool_directory__/convert.sh -v $inputvcf -p $inputplatform -o $filename_output -x $__tool_directory__
         #if $tbioption == "true":
-            -t $tbifile
+            -t
         #end if
         &&
     #end if
-   
+    
     mv '$filename_output'.bed $outputbed &&
     mv '$filename_output'.bim $outputbim &&
     mv '$filename_output'.fam $outputfam
@@ -23,7 +25,6 @@
     ]]></command>
 
     <inputs>
-
         <conditional name="inputs_platform">
             <param name="inputplatform" type="select" label="Specify the platform">
                 <option value="embark">embark</option>
@@ -69,7 +70,7 @@
             <when value="vcf4">
                 <param name="inputvcf" type="data" format="data" label="Select the VCF4 (WGS) file (zip)"/>
                 <conditional name="tflag">
-                    <param name="tbioption" type="boolean" label="tbi file present?" checked="false"/>
+                    <param name="tbioption" type="boolean" label="tbi file present?"/>
                     <when value="true">
                         <param name="tbifile" type="data" format="data" label="Select .tbi file"/>
                     </when>
