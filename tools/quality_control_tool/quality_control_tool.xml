@@ -2,23 +2,11 @@
     <requirements>
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
-    bash $__tool_directory__/quality_control.sh -i $inputbim -e $inputbed -a $inputfam -p $inputplatform -o $filename_output -x $__tool_directory__ 
-    #if $sexcheck == "true"
-        -s 
-    #end if
-    #if $duplicatecheck == "true"
-        -d
-    #end if 
-    #if $breedcheck != "None"
-        -b $breedcheck
-    #end if
-
+    
+    bash $__tool_directory__/run_tool.sh '$inputbim' '$inputbed' '$inputfam' '$inputplatform' '$filename_output' '$__tool_directory__' '$sexcheck' '$duplicatecheck' '$breedcheck' '$sex_changed' '$kinship' '$dupsummary' '$newicktree' '$treeannotation' '$treeimg' '$outputbed' '$outputbim' '$outputfam'
+    
     &&
-    
-    cp '$filename_output'.bed $outputbed &&
-    cp '$filename_output'.bim $outputbim &&
-    cp '$filename_output'.fam $outputfam
-    
+    ls -l
     ]]></command>
     <inputs>
         <param name="inputplatform" type="select" label="Specify the platform">
@@ -43,10 +31,29 @@
         </param>
     </inputs>
     <outputs>
-        <data name="outputbed" format="binary" label="${filename_output}.bed from quality_control_tool"/>
-        <data name="outputbim" format="tabular" label="${filename_output}.bim from quality_control_tool"/>
-        <data name="outputfam" format="txt" label="${filename_output}.fam from quality_control_tool"/>
+        <data name="outputbed" format="binary" label="${filename_output}.bed from quality_control_tool" />
+        <data name="outputbim" format="tabular" label="${filename_output}.bim from quality_control_tool" />
+        <data name="outputfam" format="txt" label="${filename_output}.fam from quality_control_tool" />
+        <data name="sex_changed" format="txt" label="${filename_output}_sex_changed.txt" optional="true" >
+            <filter> sexcheck == True </filter>
+        </data>
+        <data name="kinship" format="txt" label="${filename_output}_kinship.kin0" optional="true" >
+            <filter> duplicatecheck == True </filter>
+        </data>
+        <data name="dupsummary" format="txt" label="${filename_output}_duplicate_summary.txt" optional="true" >
+            <filter> duplicatecheck == True </filter>
+        </data>
+        <data name="newicktree" format="newick" label="${filename_output}_tree.newick" optional="true">
+            <filter> breedcheck != None </filter>
+        </data>
+        <data name="treeannotation" format="txt" label="${filename_output}_tree_annotation.txt" optional="true">
+            <filter> breedcheck != None </filter>
+        </data>
+        <data name="treeimg" format="png" label="${filename_output}_tree.png" optional="true">
+            <filter> breedcheck != None </filter>
+        </data>
     </outputs>
+
     <help><![CDATA[
     Create help section here 
     ]]></help>
