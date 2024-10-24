@@ -15,7 +15,7 @@
                 <option value="phylip">phylip</option>
                 <option value="biopython">biopython</option>
         </param>
-        <param name="iterations" type="integer" value="1" label="Specify number of iterations"/>
+        <param name="iterations" type="integer" value="2" min="2" label="Specify number of iterations (minimal of 2)"/>
         <param name="sample_ID" type="text" label="Specify Sample ID of outgroup sample (in .fam file)" optional="false"/>
         <param name="filename_output" type="text" format="text" label="Prefix for the output file" optional="false"/>
 
